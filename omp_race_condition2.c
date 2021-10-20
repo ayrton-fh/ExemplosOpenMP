@@ -14,15 +14,21 @@
 #include <omp.h>
 #include <unistd.h>
 
-
 int publico = 0;
 
-void incPublico(){
-   # pragma omp critical
+void incPublico() {
+   // # pragma omp critical
    publico++; // Região crítica
 }
 
-void Portaria(void);
+void Portaria(void) {
+    int i;
+
+   for  (i = 1; i <= 1000000; i++) {
+      # pragma omp critical
+      incPublico();
+   }
+}
 
 int main(int argc, char* argv[]) {
    int thread_count = 4;
@@ -34,12 +40,3 @@ int main(int argc, char* argv[]) {
 
    return 0; 
 }
-
-void Portaria(void) {
-   int i;
-
-   for  (i = 1; i <= 1000000; i++){
-      incPublico();
-   }
-
-} 

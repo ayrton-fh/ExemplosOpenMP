@@ -14,7 +14,12 @@
 #include <omp.h>
 #include <unistd.h>
 
-void Hello(void);
+void Hello(void) {
+   int my_rank = omp_get_thread_num(); 
+   int thread_count = omp_get_num_threads(); 
+   sleep(my_rank);
+   printf("Hello from thread %d of %d\n", my_rank, thread_count); 
+}
 
 int main(int argc, char* argv[]) {
    int thread_count = 10;
@@ -32,11 +37,4 @@ int main(int argc, char* argv[]) {
    printf("END!\n");
 
    return 0; 
-}
-
-void Hello(void) {
-   int my_rank = omp_get_thread_num(); 
-   int thread_count = omp_get_num_threads(); 
-   sleep(my_rank);
-   printf("Hello from thread %d of %d\n", my_rank, thread_count); 
 }
